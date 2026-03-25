@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-gradient: radial-gradient(closest-side, rgba(20,184,166,0.15), rgba(20,184,166,0.08) 40%, rgba(20,184,166,0.0) 68%);
+}
+
+html {
+  @apply tw-min-h-full tw-bg-white tw-antialiased;
+}
+
+body {
+  @apply tw-min-h-full tw-bg-white tw-antialiased;
+  font-family: var(--font-lato), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.tw-font-outfit {
+  font-family: var(--font-outfit), var(--font-lato), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.tw-glass {
+  @apply tw-bg-white/85 tw-backdrop-blur-md tw-shadow-glass tw-ring-1 tw-ring-gray-900/5;
+}
+
+.tw-frost {
+  @apply tw-bg-white/60 tw-backdrop-blur-xl tw-ring-1 tw-ring-black/5 tw-shadow-[0_20px_70px_-60px_rgba(2,6,23,0.55)];
+}
+
+.tw-frost-card {
+  @apply tw-frost tw-border tw-border-white/40;
+}
