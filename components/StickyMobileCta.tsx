@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { MagneticButton } from './MagneticButton';
 
 /** Reserves scroll space for `StickyMobileCta` (mobile only). Omit on `/quote` where the bar is hidden. */
 export function MobileBottomSpacer() {
@@ -30,12 +31,14 @@ export function StickyMobileCta() {
       aria-label="Quick quote"
     >
       <div className="tw-mx-auto tw-flex tw-max-w-lg tw-items-center tw-justify-center">
-        <Link
-          href="/quote"
-          className="tw-flex tw-min-h-[48px] tw-w-full tw-items-center tw-justify-center tw-rounded-2xl tw-bg-purple-500 tw-px-4 tw-text-sm tw-font-bold tw-text-white tw-no-underline tw-shadow-md tw-transition active:tw-scale-[0.98] hover:tw-bg-purple-500/92 focus:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-purple-300 focus-visible:tw-ring-offset-2"
-        >
-          Get a Free Quote
-        </Link>
+        <MagneticButton strength={0.2}>
+          <Link
+            href="/quote"
+            className="tw-flex tw-min-h-[48px] tw-w-full tw-items-center tw-justify-center tw-rounded-2xl tw-bg-purple-500 tw-px-4 tw-text-sm tw-font-bold tw-text-white tw-no-underline tw-shadow-md tw-transition active:tw-scale-[0.98] hover:tw-bg-purple-500/92 focus:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-gray-300 focus-visible:tw-ring-offset-2"
+          >
+            Get a Free Quote
+          </Link>
+        </MagneticButton>
       </div>
     </div>
   );

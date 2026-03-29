@@ -35,7 +35,7 @@ export function Carousel({ title, className, children }: Props) {
           <button
             type="button"
             onClick={() => scrollBy(-1)}
-            className="tw-pointer-events-auto tw-inline-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-rounded-full tw-frost tw-text-gray-900 hover:tw-bg-white/70 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-purple-200"
+            className="tw-pointer-events-auto tw-inline-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-rounded-full tw-frost tw-text-gray-900 hover:tw-bg-white/70 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-gray-300"
             aria-label="Previous"
           >
             <span className="tw-text-xl tw-leading-none">‹</span>
@@ -45,7 +45,7 @@ export function Carousel({ title, className, children }: Props) {
           <button
             type="button"
             onClick={() => scrollBy(1)}
-            className="tw-pointer-events-auto tw-inline-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-rounded-full tw-frost tw-text-gray-900 hover:tw-bg-white/70 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-purple-200"
+            className="tw-pointer-events-auto tw-inline-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-rounded-full tw-frost tw-text-gray-900 hover:tw-bg-white/70 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-gray-300"
             aria-label="Next"
           >
             <span className="tw-text-xl tw-leading-none">›</span>

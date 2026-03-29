@@ -30,3 +30,30 @@ body {
 .tw-frost-card {
   @apply tw-frost tw-border tw-border-white/40;
 }
+
+/* Animated gradient shimmer for hero headline accent words */
+@keyframes gradient-sweep {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.tw-gradient-text {
+  background: linear-gradient(120deg, #7957ff, #14b8a6, #a78bfa, #7957ff);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-sweep 4s ease infinite;
+}
+
+/* Section boundary gradient dividers */
+.tw-section-divider-purple {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.07) 30%, rgba(0, 0, 0, 0.07) 70%, transparent);
+}
+
+.tw-section-divider-teal {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.07) 30%, rgba(0, 0, 0, 0.07) 70%, transparent);
+}

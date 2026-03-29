@@ -46,7 +46,7 @@ export function WhyCargoz() {
         range={[64, -64]}
         className="tw-absolute tw-inset-0 tw-z-0 tw-bg-white"
       />
-      <SubtleBlurOrb sectionRef={sectionRef} tone="purple" position="top-right" />
+      <SubtleBlurOrb sectionRef={sectionRef} tone="teal" position="top-right" />
 
       <div className="tw-relative tw-z-10 tw-container tw-mx-auto">
         <motion.div
@@ -81,7 +81,7 @@ export function WhyCargoz() {
               <ScrollText
                 as="p"
                 text="Why Cargoz?"
-                className="tw-text-purple-500 tw-font-semibold tw-text-sm md:tw-text-base"
+                className="tw-text-gray-500 tw-font-semibold tw-text-sm md:tw-text-base"
                 split="lines"
                 amount={0.6}
               />

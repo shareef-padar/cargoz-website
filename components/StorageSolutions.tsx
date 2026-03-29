@@ -59,7 +59,7 @@ export function StorageSolutions() {
               <ScrollText
                 as="p"
                 text="Storage solutions"
-                className="tw-text-purple-500 tw-font-semibold tw-text-sm md:tw-text-base"
+                className="tw-text-gray-500 tw-font-semibold tw-text-sm md:tw-text-base"
                 split="lines"
                 amount={0.6}
               />

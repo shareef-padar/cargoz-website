@@ -3,41 +3,29 @@
 import { motion, useReducedMotion, type MotionProps } from 'framer-motion';
 import { motionViewportInView } from '@/lib/motionViewport';
 
+type As = 'p' | 'span' | 'h1' | 'h2' | 'h3' | 'div';
+
 type Props = {
   text: string;
-  as?: 'p' | 'span' | 'h1' | 'h2' | 'h3' | 'div';
+  as?: As;
   className?: string;
   split?: 'words' | 'lines';
   delay?: number;
   amount?: number;
 } & Pick<MotionProps, 'transition'>;
 
-function renderStatic(
-  as: NonNullable<Props['as']>,
-  className: string | undefined,
-  text: string,
-) {
-  const Static =
-    as === 'h1'
-      ? 'h1'
-      : as === 'h2'
-        ? 'h2'
-        : as === 'h3'
-          ? 'h3'
-          : as === 'div'
-            ? 'div'
-            : as === 'span'
-              ? 'span'
-              : 'p';
-  return (
-    <Static className={className}>
-      {text}
-    </Static>
-  );
-}
+const MOTION_COMP = {
+  h1: motion.h1,
+  h2: motion.h2,
+  h3: motion.h3,
+  div: motion.div,
+  span: motion.span,
+  p: motion.p,
+} as const;
 
 /**
- * Blurred word/line reveal. `hidden` uses opacity:1 + blur so the page never ships invisible text.
+ * Clipped word/line reveal. Each token slides up from behind a clip mask —
+ * no blur, no fade, just a clean editorial gate effect.
  */
 export function ScrollText({
   text,
@@ -50,22 +38,13 @@ export function ScrollText({
 }: Props) {
   const reduceMotion = useReducedMotion();
   const tokens = split === 'words' ? text.split(/\s+/).filter(Boolean) : [text];
-  const Comp =
-    as === 'h1'
-      ? motion.h1
-      : as === 'h2'
-        ? motion.h2
-        : as === 'h3'
-          ? motion.h3
-          : as === 'div'
-            ? motion.div
-            : as === 'span'
-              ? motion.span
-              : motion.p;
 
   if (reduceMotion === true) {
-    return renderStatic(as, className, text);
+    const Tag = as;
+    return <Tag className={className}>{text}</Tag>;
   }
+
+  const Comp = MOTION_COMP[as];
 
   return (
     <Comp
@@ -75,22 +54,27 @@ export function ScrollText({
       viewport={{ ...motionViewportInView, amount }}
       variants={{
         hidden: {},
-        show: { transition: { staggerChildren: split === 'words' ? 0.045 : 0.0, delayChildren: delay } },
+        show: { transition: { staggerChildren: split === 'words' ? 0.055 : 0.0, delayChildren: delay } },
       }}
     >
       {tokens.map((t, i) => (
-        <motion.span
+        /* Clip container — overflow:hidden acts as the gate; vertical-align:bottom anchors the clip to baseline */
+        <span
           key={`${t}-${i}`}
-          className={split === 'words' ? 'tw-inline-block tw-whitespace-pre' : undefined}
-          variants={{
-            hidden: { opacity: 1, y: 14, filter: 'blur(6px)' },
-            show: { opacity: 1, y: 0, filter: 'blur(0px)' },
-          }}
-          transition={transition ?? { duration: 0.9, ease: [0.21, 0.72, 0.22, 1] }}
+          style={{ display: 'inline-block', overflow: 'hidden', verticalAlign: 'bottom' }}
         >
-          {t}
-          {split === 'words' ? ' ' : null}
-        </motion.span>
+          <motion.span
+            style={{ display: 'inline-block', whiteSpace: 'pre' }}
+            variants={{
+              hidden: { y: '100%' },
+              show: { y: '0%' },
+            }}
+            transition={transition ?? { duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {t}
+            {split === 'words' ? ' ' : null}
+          </motion.span>
+        </span>
       ))}
     </Comp>
   );

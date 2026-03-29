@@ -8,6 +8,7 @@ import { useSectionReveal } from '@/lib/useSectionReveal';
 import { ParallaxBackdrop } from './ParallaxBackdrop';
 import { ScrollText } from './ScrollText';
 import { sectionSlideUp } from './motionPresets';
+import { MagneticButton } from './MagneticButton';
 
 /**
  * Sits between FAQ (white) and footer (navy): background is split so the card
@@ -53,12 +54,14 @@ export function BottomCta() {
                 amount={0.55}
               />
               <div className="tw-mt-7 md:tw-mt-8">
-                <Link
-                  href="/quote"
-                  className="tw-inline-flex tw-items-center tw-justify-center tw-rounded-full tw-bg-white tw-px-8 tw-py-3.5 tw-text-base md:tw-text-lg tw-font-semibold tw-text-[#0F766E] tw-no-underline tw-shadow-[0_8px_30px_-12px_rgba(0,0,0,0.35)] tw-transition tw-duration-200 hover:tw-bg-white hover:tw-shadow-[0_12px_40px_-12px_rgba(0,0,0,0.4)] hover:tw--translate-y-0.5 focus:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-white focus-visible:tw-ring-offset-2 focus-visible:tw-ring-offset-[#0F766E]"
-                >
-                  Get your quote
-                </Link>
+                <MagneticButton>
+                  <Link
+                    href="/quote"
+                    className="tw-inline-flex tw-items-center tw-justify-center tw-rounded-full tw-bg-white tw-px-8 tw-py-3.5 tw-text-base md:tw-text-lg tw-font-semibold tw-text-[#0F766E] tw-no-underline tw-shadow-[0_8px_30px_-12px_rgba(0,0,0,0.35)] tw-transition tw-duration-200 hover:tw-bg-white hover:tw-shadow-[0_12px_40px_-12px_rgba(0,0,0,0.4)] hover:tw--translate-y-0.5 focus:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-white focus-visible:tw-ring-offset-2 focus-visible:tw-ring-offset-[#0F766E]"
+                  >
+                    Get your quote
+                  </Link>
+                </MagneticButton>
               </div>
             </div>
 

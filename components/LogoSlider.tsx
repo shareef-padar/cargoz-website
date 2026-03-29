@@ -12,8 +12,14 @@ const row = [...logos, ...logos];
 
 export function LogoSlider() {
   return (
-    <div className="tw-w-full tw-overflow-hidden tw-relative">
-      <div className="tw-flex tw-gap-10 md:tw-gap-16 tw-items-center tw-animate-marquee tw-px-4 md:tw-px-8">
+    <div
+      className="tw-w-full tw-overflow-hidden tw-relative"
+      style={{
+        maskImage: 'linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)',
+        WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)',
+      }}
+    >
+      <div className="tw-flex tw-gap-10 md:tw-gap-16 tw-items-center tw-animate-marquee tw-px-4 md:tw-px-8 tw-py-6 md:tw-py-8">
         {row.map((logo, i) => (
           <div
             key={`${logo.alt}-${i}`}

@@ -2,14 +2,13 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { QuoteBuilder } from './QuoteBuilder';
 import { motion, useReducedMotion } from 'framer-motion';
 import { LogoSlider } from './LogoSlider';
 import { ParallaxBackdrop } from './ParallaxBackdrop';
-import { ScrollText } from './ScrollText';
 import { CountUp } from './CountUp';
 
-const HERO_HEADLINE = 'Find your warehouse today. Move in tomorrow.';
+const HERO_HEADLINE = 'Find your warehouse today.\nMove in tomorrow.';
 
 /** Soft ease-in (slow start) — calmer than the default snappy section preset */
 const heroEaseIn: [number, number, number, number] = [0.4, 0, 0.2, 1];
@@ -97,31 +96,17 @@ export function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="tw-relative tw-min-w-0 tw-overflow-x-hidden tw-bg-white tw-pt-10 md:tw-pt-16 tw-min-h-[calc(100vh-140px)] md:tw-min-h-[calc(100vh-160px)] tw-flex tw-items-center"
+      className="tw-relative tw-min-w-0 tw-overflow-x-hidden tw-pt-10 md:tw-pt-16 tw-min-h-[calc(100vh-140px)] md:tw-min-h-[calc(100vh-160px)] tw-flex tw-items-center"
     >
-      {/* Dot grid — balance between subtle and visible; fades at edges */}
-      <div
-        className="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-[1]"
-        style={{
-          backgroundImage:
-            'radial-gradient(rgba(125, 136, 156, 0.34) 1.1px, transparent 1.1px)',
-          backgroundSize: '21px 21px',
-          maskImage:
-            'radial-gradient(ellipse 88% 68% at 50% 39%, black 0%, black 50%, transparent 84%)',
-          WebkitMaskImage:
-            'radial-gradient(ellipse 88% 68% at 50% 39%, black 0%, black 50%, transparent 84%)',
-        }}
-        aria-hidden
-      />
       <ParallaxBackdrop
         sectionRef={sectionRef}
         range={[39, -36]}
-        className="tw-pointer-events-none tw-absolute tw--top-28 tw-right-[8%] tw-z-[2] tw-h-[min(380px,55vw)] tw-w-[min(380px,70vw)] tw-rounded-full tw-bg-purple-300/30 tw-blur-3xl"
+        className="tw-pointer-events-none tw-absolute tw-top-8 tw-right-[8%] tw-z-[2] tw-h-[min(380px,55vw)] tw-w-[min(380px,70vw)] tw-rounded-full tw-bg-purple-300/30 tw-blur-3xl"
       />
       <ParallaxBackdrop
         sectionRef={sectionRef}
         range={[27, -51]}
-        className="tw-pointer-events-none tw-absolute tw-top-1/3 tw--left-[18%] tw-z-[2] tw-h-[min(300px,50vw)] tw-w-[min(300px,60vw)] tw-rounded-full tw-bg-teal-200/25 tw-blur-3xl"
+        className="tw-pointer-events-none tw-absolute tw-top-1/2 tw--left-[18%] tw-z-[2] tw-h-[min(300px,50vw)] tw-w-[min(300px,60vw)] tw-rounded-full tw-bg-teal-200/25 tw-blur-3xl"
       />
       <div className="tw-relative tw-z-10 tw-container tw-mx-auto tw-px-4 tw-flex tw-flex-col tw-items-center tw-gap-8 md:tw-gap-10">
         <div className="tw-text-center tw-w-full tw-max-w-5xl tw-mx-auto">
@@ -129,18 +114,26 @@ export function Hero() {
             <span className="tw-sr-only">{HERO_HEADLINE}</span>
             <span className="tw-grid tw-w-full tw-text-center" aria-hidden="true">
               <span className="tw-col-start-1 tw-row-start-1 tw-invisible tw-whitespace-pre-wrap">
-                {HERO_HEADLINE}
+                {'Find your warehouse today.\nMove in tomorrow.'}
               </span>
               <span className="tw-col-start-1 tw-row-start-1 tw-whitespace-pre-wrap">
-                {displayed}
-                {!complete ? (
-                  <span
-                    className="tw-inline-block tw-w-[0.08em] tw-animate-pulse tw-text-gray-400 tw-align-baseline"
-                    aria-hidden
-                  >
-                    |
-                  </span>
-                ) : null}
+                {complete ? (
+                  <>
+                    {'Find your warehouse today.\n'}
+                    {'Move in '}
+                    <span className="tw-gradient-text">tomorrow.</span>
+                  </>
+                ) : (
+                  <>
+                    {displayed}
+                    <span
+                      className="tw-inline-block tw-w-[0.08em] tw-animate-pulse tw-text-gray-400 tw-align-baseline"
+                      aria-hidden
+                    >
+                      |
+                    </span>
+                  </>
+                )}
               </span>
             </span>
           </h1>
@@ -155,38 +148,23 @@ export function Hero() {
         >
           <motion.div
             variants={heroRestItemVariants}
-            className="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-x-6 tw-gap-y-2 md:tw-gap-x-10 tw-text-gray-500 tw-text-sm md:tw-text-base"
+            className="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-x-3 tw-gap-y-2 md:tw-gap-x-4"
           >
-            <span className="tw-inline-flex tw-items-center tw-gap-2">
-              <Image
-                src="/hero-social-customers.png"
-                alt=""
-                width={20}
-                height={20}
-                className="tw-h-5 tw-w-5 tw-shrink-0 tw-object-contain"
-              />
-              <CountUp end={2000} suffix="+" enabled={showHeroRest} /> customers
-            </span>
-            <span className="tw-inline-flex tw-items-center tw-gap-2">
-              <Image
-                src="/hero-social-warehouses.png"
-                alt=""
-                width={20}
-                height={20}
-                className="tw-h-5 tw-w-5 tw-shrink-0 tw-object-contain"
-              />
-              <CountUp end={800} suffix="+" enabled={showHeroRest} /> verified warehouses
-            </span>
-            <span className="tw-inline-flex tw-items-center tw-gap-2">
-              <Image
-                src="/hero-social-google.png"
-                alt=""
-                width={20}
-                height={20}
-                className="tw-h-5 tw-w-5 tw-shrink-0 tw-object-contain"
-              />
-              5.0 star-rated on Google
-            </span>
+            {[
+              { src: '/hero-social-customers.png', label: <><CountUp end={2000} suffix="+" enabled={showHeroRest} /> customers</>, delay: 0 },
+              { src: '/hero-social-warehouses.png', label: <><CountUp end={800} suffix="+" enabled={showHeroRest} /> verified warehouses</>, delay: 0.15 },
+              { src: '/hero-social-google.png', label: <>5.0 star-rated on Google</>, delay: 0.3 },
+            ].map(({ src, label, delay }) => (
+              <motion.span
+                key={src}
+                animate={showHeroRest && !reduceMotion ? { y: [0, -5, 0] } : {}}
+                transition={{ duration: 3, ease: 'easeInOut', repeat: Infinity, delay }}
+                className="tw-inline-flex tw-items-center tw-gap-2 tw-rounded-full tw-border tw-border-gray-200/80 tw-bg-white/70 tw-backdrop-blur-sm tw-px-3 tw-py-1.5 tw-text-gray-600 tw-text-sm md:tw-text-base tw-shadow-sm"
+              >
+                <Image src={src} alt="" width={20} height={20} className="tw-h-5 tw-w-5 tw-shrink-0 tw-object-contain" />
+                {label}
+              </motion.span>
+            ))}
           </motion.div>
 
           <div className="tw-text-center">
@@ -202,24 +180,15 @@ export function Hero() {
             </motion.p>
           </div>
 
-          <div className="tw-flex tw-flex-col tw-items-center tw-gap-8">
-            <motion.div variants={heroRestItemVariants}>
-              <Link
-                href="/quote"
-                className="tw-inline-flex tw-items-center tw-justify-center tw-rounded-2xl tw-bg-purple-500 tw-px-6 tw-py-3 tw-text-sm md:tw-text-base tw-font-medium tw-text-white tw-no-underline tw-shadow-sm hover:tw-bg-purple-500/90 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-purple-200 focus:tw-ring-offset-2"
-              >
-                Get a Free Quote
-              </Link>
+          <div className="tw-flex tw-flex-col tw-items-center tw-gap-8 tw-w-full">
+            <motion.div variants={heroRestItemVariants} className="tw-w-full tw-max-w-4xl">
+              <QuoteBuilder />
             </motion.div>
 
             <motion.div variants={heroRestItemVariants} className="tw-w-full">
-              <ScrollText
-                as="p"
-                text="Trusted by great companies just like you"
-                className="tw-text-xs md:tw-text-sm tw-text-gray-400 tw-text-center -tw-mb-4"
-                split="lines"
-                amount={0.2}
-              />
+              <p className="tw-text-xs md:tw-text-sm tw-text-gray-400 tw-text-center -tw-mb-4">
+                Trusted by great companies just like you
+              </p>
             </motion.div>
             {/* Full-bleed strip without translate (Framer variants use transform for slide-up — would override left-1/2 -translate-x-1/2) */}
             <motion.div

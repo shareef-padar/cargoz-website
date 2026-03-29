@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
 import { useSectionReveal } from '@/lib/useSectionReveal';
 import { ParallaxBackdrop } from './ParallaxBackdrop';
 import { SubtleBlurOrb } from './SubtleBlurOrb';
@@ -67,11 +67,34 @@ function GoogleLogo({ className }: { className?: string }) {
 }
 
 function ReviewCard({ review, wide }: { review: Review; wide?: boolean }) {
+  const reduceMotion = useReducedMotion();
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [5, -5]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-5, 5]), { stiffness: 300, damping: 30 });
+
+  function onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    if (reduceMotion) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
+    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
+  }
+
+  function onMouseLeave() {
+    mouseX.set(0);
+    mouseY.set(0);
+  }
+
   return (
-    <div
+    <motion.div
+      style={reduceMotion ? undefined : { rotateX, rotateY, transformPerspective: 900 }}
+      whileHover={reduceMotion ? undefined : { y: -5, boxShadow: '0 28px 60px -40px rgba(0,0,0,0.16)' }}
+      transition={{ duration: 0.25, ease: 'easeOut' }}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
       className={[
         'tw-h-full tw-flex tw-flex-col tw-rounded-[2.25rem] md:tw-rounded-[2.5rem]',
-        'tw-frost-card',
+        'tw-frost-card tw-will-change-transform',
         wide
           ? 'tw-p-6 md:tw-p-8 lg:tw-p-9'
           : 'tw-p-6 md:tw-p-7',
@@ -101,7 +124,7 @@ function ReviewCard({ review, wide }: { review: Review; wide?: boolean }) {
           {review.name}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -119,8 +142,8 @@ export function GoogleReviews() {
     {
       name: 'Amani Omar',
       initial: 'A',
-      initialBg: 'tw-bg-purple-600',
-      border: 'tw-border-purple-100/80',
+      initialBg: 'tw-bg-gray-700',
+      border: 'tw-border-gray-100/80',
       text: 'سبق وتعاملت مع شركات تخزين ولكن شفت منهم صراحة ارتداء من كارجوز، متعاونين جداً وشكرًا على تعاونكم. وجودة التعامل ممتازة، يعطيهم العافية. أيضاً مصطفى بذل كل جهده عشان يساعدك، متعاون جداً، وكامل الفريق من موظفين متعاونين جداً. سعيدين جدًا بالتعامل معهم وإن شاءالله تكون بداية تعاونات مشتركة بيننا.',
     },
     {
@@ -154,8 +177,8 @@ export function GoogleReviews() {
     {
       name: 'Mohammed Al Suwaidi',
       initial: 'M',
-      initialBg: 'tw-bg-indigo-600',
-      border: 'tw-border-indigo-100/80',
+      initialBg: 'tw-bg-slate-700',
+      border: 'tw-border-slate-100/80',
       text: 'خدمة ممتازة وتنظيم رائع للمخزن، التواصل واضح والتسليم في الوقت المحدد. أنصح بالتعامل مع كارجوز.',
     },
   ];
@@ -178,11 +201,11 @@ export function GoogleReviews() {
         range={[52, -52]}
         className="tw-absolute tw-inset-0 tw-z-0 tw-bg-white"
       />
-      <SubtleBlurOrb sectionRef={sectionRef} tone="purple" position="bottom-left" />
+      <SubtleBlurOrb sectionRef={sectionRef} tone="teal" position="bottom-left" />
 
       <div className="tw-relative tw-z-10 tw-container tw-mx-auto tw-max-w-7xl">
         <div className="tw-text-center">
-          <p className="tw-text-purple-500 tw-font-semibold tw-text-sm md:tw-text-base">Loved by Customers</p>
+          <p className="tw-text-gray-500 tw-font-semibold tw-text-sm md:tw-text-base">Loved by Customers</p>
           <div className="tw-mt-2 tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-x-2 tw-gap-y-1 tw-text-[22px] md:tw-text-4xl tw-font-bold tw-text-gray-900 tw-font-outfit">
             <span className="tw-inline-block">5.0 Star-Rated on</span>
             <GoogleLogo className="tw-w-7 tw-h-7 md:tw-w-9 md:tw-h-9 tw-shrink-0" />
@@ -211,7 +234,7 @@ export function GoogleReviews() {
             href={GOOGLE_REVIEWS_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="tw-inline-flex tw-items-center tw-gap-1 tw-text-purple-600 tw-font-semibold tw-text-sm md:tw-text-base hover:tw-text-purple-700 tw-underline-offset-4 hover:tw-underline tw-transition-colors"
+            className="tw-inline-flex tw-items-center tw-gap-1 tw-text-gray-700 tw-font-semibold tw-text-sm md:tw-text-base hover:tw-text-gray-900 tw-underline-offset-4 hover:tw-underline tw-transition-colors"
           >
             <span className="tw-text-inherit">Read All Google Reviews</span>
             <span aria-hidden className="tw-text-lg tw-leading-none">

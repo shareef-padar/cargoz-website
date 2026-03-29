@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useSectionReveal } from '@/lib/useSectionReveal';
 import { ParallaxBackdrop } from './ParallaxBackdrop';
 import { SubtleBlurOrb } from './SubtleBlurOrb';
@@ -19,12 +19,33 @@ function StepCard({
   desc: string;
   icon: React.ReactNode;
 }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), { stiffness: 300, damping: 30 });
+
+  function onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
+    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
+  }
+
+  function onMouseLeave() {
+    mouseX.set(0);
+    mouseY.set(0);
+  }
+
   return (
     <motion.div
+      ref={cardRef}
       variants={sectionSlideChild}
-      whileHover={{ y: -6, boxShadow: '0 28px 60px -40px rgba(121,87,255,0.30)', borderColor: 'rgba(121,87,255,0.35)' }}
+      style={{ rotateX, rotateY, transformPerspective: 800 }}
+      whileHover={{ y: -6, boxShadow: '0 28px 60px -40px rgba(0,0,0,0.14)', borderColor: 'rgba(0,0,0,0.10)' }}
       transition={{ duration: 0.25, ease: 'easeOut' }}
-      className="tw-relative tw-rounded-[2.25rem] tw-frost-card tw-p-6 md:tw-p-7 tw-cursor-default"
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      className="tw-relative tw-rounded-[2.25rem] tw-frost-card tw-p-6 md:tw-p-7 tw-cursor-default tw-will-change-transform"
     >
       <div className="tw-absolute tw-left-1/2 -tw-translate-x-1/2 -tw-top-3 tw-w-8 tw-h-8 tw-rounded-full tw-bg-white tw-border tw-border-gray-200 tw-grid tw-place-items-center tw-text-xs tw-font-bold tw-text-gray-900">
         {step}

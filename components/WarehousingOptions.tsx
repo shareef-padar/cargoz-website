@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
 import { motionViewportInView } from '@/lib/motionViewport';
 import { useSectionReveal } from '@/lib/useSectionReveal';
 import { ParallaxBackdrop } from './ParallaxBackdrop';
@@ -22,6 +22,65 @@ function Item({ icon, label }: { icon: React.ReactNode; label: string }) {
         split="words"
         amount={0.1}
       />
+    </motion.div>
+  );
+}
+
+function WareCard({ card }: { card: { title: string; img: string; desc: string; icon: React.ReactNode } }) {
+  const reduceMotion = useReducedMotion();
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [6, -6]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-6, 6]), { stiffness: 300, damping: 30 });
+
+  function onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    if (reduceMotion) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
+    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
+  }
+
+  function onMouseLeave() {
+    mouseX.set(0);
+    mouseY.set(0);
+  }
+
+  return (
+    <motion.div
+      variants={sectionSlideChild}
+      style={reduceMotion ? undefined : { rotateX, rotateY, transformPerspective: 800 }}
+      whileHover={reduceMotion ? undefined : { y: -6, boxShadow: '0 28px 60px -40px rgba(0,0,0,0.14)', borderColor: 'rgba(0,0,0,0.10)' }}
+      transition={{ duration: 0.25, ease: 'easeOut' }}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      className="tw-rounded-[2.25rem] tw-frost-card tw-overflow-hidden tw-will-change-transform"
+    >
+      <div className="tw-p-6">
+        <div className="tw-h-36 tw-rounded-2xl tw-overflow-hidden tw-border tw-border-gray-100 tw-bg-gray-50 tw-flex tw-items-center tw-justify-center">
+          <img
+            src={card.img}
+            alt={card.title}
+            className="tw-w-full tw-h-full tw-object-contain tw-p-2"
+          />
+        </div>
+        <div className="tw-mt-5 tw-flex tw-items-center tw-gap-2 tw-text-gray-900 tw-font-semibold">
+          <span className="tw-text-primary-500">{card.icon}</span>
+          <ScrollText
+            as="span"
+            text={card.title}
+            className="tw-text-inherit"
+            split="lines"
+            amount={0.12}
+          />
+        </div>
+        <ScrollText
+          as="div"
+          text={card.desc}
+          className="tw-mt-2 tw-text-sm tw-leading-6 tw-text-gray-500"
+          split="words"
+          amount={0.1}
+        />
+      </div>
     </motion.div>
   );
 }
@@ -50,14 +109,14 @@ export function WarehousingOptions() {
         range={[58, -58]}
         className="tw-absolute tw-inset-0 tw-z-0 tw-bg-white"
       />
-      <SubtleBlurOrb sectionRef={sectionRef} tone="purple" position="bottom-right" />
+      <SubtleBlurOrb sectionRef={sectionRef} tone="teal" position="bottom-right" />
 
       <div className="tw-relative tw-z-10 tw-container tw-mx-auto">
         <div className="tw-text-center tw-mb-10 md:tw-mb-12">
           <ScrollText
             as="p"
             text="Find storage solutions that fit your business"
-            className="tw-text-purple-500 tw-font-semibold tw-text-sm md:tw-text-base"
+            className="tw-text-gray-500 tw-font-semibold tw-text-sm md:tw-text-base"
             split="lines"
             amount={0.7}
           />
@@ -199,38 +258,7 @@ export function WarehousingOptions() {
               ),
             },
           ].map((card) => (
-            <motion.div
-              key={card.title}
-              variants={sectionSlideChild}
-              className="tw-rounded-[2.25rem] tw-frost-card tw-overflow-hidden"
-            >
-              <div className="tw-p-6">
-                <div className="tw-h-36 tw-rounded-2xl tw-overflow-hidden tw-border tw-border-gray-100 tw-bg-gray-50 tw-flex tw-items-center tw-justify-center">
-                  <img
-                    src={card.img}
-                    alt={card.title}
-                    className="tw-w-full tw-h-full tw-object-contain tw-p-2"
-                  />
-                </div>
-                <div className="tw-mt-5 tw-flex tw-items-center tw-gap-2 tw-text-gray-900 tw-font-semibold">
-                  <span className="tw-text-primary-500">{card.icon}</span>
-                  <ScrollText
-                    as="span"
-                    text={card.title}
-                    className="tw-text-inherit"
-                    split="lines"
-                    amount={0.12}
-                  />
-                </div>
-                <ScrollText
-                  as="div"
-                  text={card.desc}
-                  className="tw-mt-2 tw-text-sm tw-leading-6 tw-text-gray-500"
-                  split="words"
-                  amount={0.1}
-                />
-              </div>
-            </motion.div>
+            <WareCard key={card.title} card={card} />
           ))}
         </motion.div>
       </div>

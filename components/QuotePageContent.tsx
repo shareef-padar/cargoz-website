@@ -82,7 +82,7 @@ export function QuotePageContent() {
             <div className="tw-mt-8 tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-3">
               <Link
                 href="/"
-                className="tw-inline-flex tw-items-center tw-justify-center tw-rounded-2xl tw-bg-purple-500 tw-px-5 tw-py-3 tw-text-sm tw-font-semibold tw-text-white tw-no-underline hover:tw-bg-purple-500/90 focus:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-purple-300"
+                className="tw-inline-flex tw-items-center tw-justify-center tw-rounded-2xl tw-bg-purple-500 tw-px-5 tw-py-3 tw-text-sm tw-font-semibold tw-text-white tw-no-underline hover:tw-bg-purple-500/90 focus:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-gray-300"
               >
                 Back to home
               </Link>
@@ -120,7 +120,7 @@ export function QuotePageContent() {
                   required
                   autoComplete="name"
                   disabled={status === 'loading'}
-                  className="tw-mt-1.5 tw-w-full tw-rounded-xl tw-border tw-border-gray-200 tw-bg-white tw-px-4 tw-py-3 tw-text-sm tw-text-gray-900 tw-outline-none focus:tw-border-purple-400 focus:tw-ring-2 focus:tw-ring-purple-100 disabled:tw-opacity-60"
+                  className="tw-mt-1.5 tw-w-full tw-rounded-xl tw-border tw-border-gray-200 tw-bg-white tw-px-4 tw-py-3 tw-text-sm tw-text-gray-900 tw-outline-none focus:tw-border-gray-400 focus:tw-ring-2 focus:tw-ring-gray-100 disabled:tw-opacity-60"
                   placeholder="Your name"
                 />
               </div>
@@ -135,7 +135,7 @@ export function QuotePageContent() {
                   required
                   autoComplete="email"
                   disabled={status === 'loading'}
-                  className="tw-mt-1.5 tw-w-full tw-rounded-xl tw-border tw-border-gray-200 tw-bg-white tw-px-4 tw-py-3 tw-text-sm tw-text-gray-900 tw-outline-none focus:tw-border-purple-400 focus:tw-ring-2 focus:tw-ring-purple-100 disabled:tw-opacity-60"
+                  className="tw-mt-1.5 tw-w-full tw-rounded-xl tw-border tw-border-gray-200 tw-bg-white tw-px-4 tw-py-3 tw-text-sm tw-text-gray-900 tw-outline-none focus:tw-border-gray-400 focus:tw-ring-2 focus:tw-ring-gray-100 disabled:tw-opacity-60"
                   placeholder="you@company.com"
                 />
               </div>
@@ -149,7 +149,7 @@ export function QuotePageContent() {
                   required
                   rows={4}
                   disabled={status === 'loading'}
-                  className="tw-mt-1.5 tw-w-full tw-resize-y tw-rounded-xl tw-border tw-border-gray-200 tw-bg-white tw-px-4 tw-py-3 tw-text-sm tw-text-gray-900 tw-outline-none focus:tw-border-purple-400 focus:tw-ring-2 focus:tw-ring-purple-100 disabled:tw-opacity-60"
+                  className="tw-mt-1.5 tw-w-full tw-resize-y tw-rounded-xl tw-border tw-border-gray-200 tw-bg-white tw-px-4 tw-py-3 tw-text-sm tw-text-gray-900 tw-outline-none focus:tw-border-gray-400 focus:tw-ring-2 focus:tw-ring-gray-100 disabled:tw-opacity-60"
                   placeholder="Space (SQM), location, temperature, duration…"
                 />
               </div>
@@ -158,7 +158,7 @@ export function QuotePageContent() {
                 <button
                   type="submit"
                   disabled={status === 'loading'}
-                  className="tw-inline-flex tw-min-h-[48px] tw-min-w-[160px] tw-items-center tw-justify-center tw-gap-2 tw-rounded-2xl tw-bg-purple-500 tw-px-6 tw-py-3 tw-text-sm tw-font-bold tw-text-white tw-transition hover:tw-bg-purple-500/92 disabled:tw-cursor-not-allowed disabled:tw-opacity-70 focus:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-purple-300 focus-visible:tw-ring-offset-2"
+                  className="tw-inline-flex tw-min-h-[48px] tw-min-w-[160px] tw-items-center tw-justify-center tw-gap-2 tw-rounded-2xl tw-bg-purple-500 tw-px-6 tw-py-3 tw-text-sm tw-font-bold tw-text-white tw-transition hover:tw-bg-purple-500/92 disabled:tw-cursor-not-allowed disabled:tw-opacity-70 focus:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-gray-300 focus-visible:tw-ring-offset-2"
                 >
                   {status === 'loading' ? (
                     <>

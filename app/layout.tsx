@@ -1,6 +1,11 @@
 import type { Metadata } from 'next';
 import { Lato, Outfit } from 'next/font/google';
 import { MobileBottomSpacer, StickyMobileCta } from '@/components/StickyMobileCta';
+import { ScrollProgressBar } from '@/components/ScrollProgressBar';
+import { PageTransitionWrapper } from '@/components/PageTransitionWrapper';
+import { ChatBot } from '@/components/ChatBot';
+import { BackToTop } from '@/components/BackToTop';
+import { CookieBanner } from '@/components/CookieBanner';
 import './globals.css';
 
 const lato = Lato({
@@ -28,9 +33,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${lato.variable} ${outfit.variable} tw-min-h-screen tw-min-w-0 tw-flex tw-flex-col tw-font-sans tw-overflow-x-hidden`}
       >
-        {children}
+<ScrollProgressBar />
+        <PageTransitionWrapper>{children}</PageTransitionWrapper>
         <MobileBottomSpacer />
         <StickyMobileCta />
+        <ChatBot />
+        <BackToTop />
+        <CookieBanner />
       </body>
     </html>
   );

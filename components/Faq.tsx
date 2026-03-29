@@ -89,8 +89,8 @@ export function Faq() {
                 viewport={reduceMotion ? undefined : motionViewportInView}
                 whileHover={{
                   y: -4,
-                  boxShadow: '0 24px 50px -40px rgba(121,87,255,0.28)',
-                  borderColor: 'rgba(121,87,255,0.30)',
+                  boxShadow: '0 24px 50px -40px rgba(0,0,0,0.12)',
+                  borderColor: 'rgba(0,0,0,0.10)',
                   transition: { duration: 0.35, ease: [0.21, 0.72, 0.22, 1] },
                 }}
                 className="tw-rounded-[1.75rem] tw-frost-card tw-overflow-hidden"
