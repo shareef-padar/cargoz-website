@@ -1,0 +1,176 @@
+<h2>10 Animations & Design Upgrades — Implementation Plan</h2>
+<p class="subtitle">Review the order below. All are selected by default — deselect any you want to skip.</p>
+
+<style>
+.tier-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #7c3aed;
+  margin: 28px 0 10px;
+}
+.tier-label.t2 { color: #0891b2; }
+.tier-label.t3 { color: #059669; }
+.feature-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: #fff;
+}
+.feature-item:hover { border-color: #7c3aed; background: #faf5ff; }
+.feature-item.selected { border-color: #7c3aed; background: #faf5ff; }
+.feature-item.selected .check { background: #7c3aed; border-color: #7c3aed; color: white; }
+.check {
+  width: 22px; height: 22px; border-radius: 6px;
+  border: 2px solid #cbd5e1; display: grid; place-items: center;
+  font-size: 13px; flex-shrink: 0; transition: all 0.15s;
+}
+.feature-num {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: #f1f5f9; display: grid; place-items: center;
+  font-size: 12px; font-weight: 700; color: #475569; flex-shrink: 0;
+}
+.feature-body { flex: 1; }
+.feature-title { font-weight: 600; font-size: 14px; color: #0f172a; margin: 0 0 2px; }
+.feature-desc { font-size: 12px; color: #64748b; margin: 0; }
+.feature-badge {
+  font-size: 10px; font-weight: 700; padding: 3px 8px;
+  border-radius: 99px; background: #ede9fe; color: #6d28d9; flex-shrink: 0;
+}
+.feature-badge.medium { background: #e0f2fe; color: #0369a1; }
+.feature-badge.easy { background: #d1fae5; color: #065f46; }
+</style>
+
+<div class="feature-grid" id="featureList">
+
+  <div class="tier-label">🔥 Tier 1 — Highest Impact</div>
+
+  <div class="feature-item selected" data-choice="1" onclick="toggleFeature(this)">
+    <div class="check">✓</div>
+    <div class="feature-num">1</div>
+    <div class="feature-body">
+      <p class="feature-title">Hero → Video Stack Scene</p>
+      <p class="feature-desc">Hero pins sticky, video card slides up over it as you scroll — the biggest "wow" moment on the page</p>
+    </div>
+    <span class="feature-badge">Complex</span>
+  </div>
+
+  <div class="feature-item selected" data-choice="2" onclick="toggleFeature(this)">
+    <div class="check">✓</div>
+    <div class="feature-num">2</div>
+    <div class="feature-body">
+      <p class="feature-title">Magnetic CTA Buttons</p>
+      <p class="feature-desc">Buttons elastically follow the cursor on hover — common on Linear, Vercel, premium SaaS</p>
+    </div>
+    <span class="feature-badge medium">Medium</span>
+  </div>
+
+  <div class="feature-item selected" data-choice="3" onclick="toggleFeature(this)">
+    <div class="check">✓</div>
+    <div class="feature-num">3</div>
+    <div class="feature-body">
+      <p class="feature-title">3D Card Tilt on Hover</p>
+      <p class="feature-desc">FourSteps cards tilt with CSS perspective on mouse move — physical, premium depth feel</p>
+    </div>
+    <span class="feature-badge medium">Medium</span>
+  </div>
+
+  <div class="tier-label t2">✨ Tier 2 — Polished Details</div>
+
+  <div class="feature-item selected" data-choice="4" onclick="toggleFeature(this)">
+    <div class="check">✓</div>
+    <div class="feature-num">4</div>
+    <div class="feature-body">
+      <p class="feature-title">Animated Gradient Headline</p>
+      <p class="feature-desc">Key words in the hero get a moving purple→teal shimmer gradient sweep</p>
+    </div>
+    <span class="feature-badge easy">Easy</span>
+  </div>
+
+  <div class="feature-item selected" data-choice="5" onclick="toggleFeature(this)">
+    <div class="check">✓</div>
+    <div class="feature-num">5</div>
+    <div class="feature-body">
+      <p class="feature-title">Inline QuoteBuilder in Hero</p>
+      <p class="feature-desc">Replace single CTA button with the existing mini-form widget — more visually substantial</p>
+    </div>
+    <span class="feature-badge easy">Easy</span>
+  </div>
+
+  <div class="feature-item selected" data-choice="6" onclick="toggleFeature(this)">
+    <div class="check">✓</div>
+    <div class="feature-num">6</div>
+    <div class="feature-body">
+      <p class="feature-title">Scroll Progress Bar</p>
+      <p class="feature-desc">Thin purple line at top of viewport grows as user scrolls — signals craft</p>
+    </div>
+    <span class="feature-badge easy">Easy</span>
+  </div>
+
+  <div class="feature-item selected" data-choice="7" onclick="toggleFeature(this)">
+    <div class="check">✓</div>
+    <div class="feature-num">7</div>
+    <div class="feature-body">
+      <p class="feature-title">Floating Stats Chips</p>
+      <p class="feature-desc">Hero stats gently bob with a looping y-translate — draws the eye subtly</p>
+    </div>
+    <span class="feature-badge easy">Easy</span>
+  </div>
+
+  <div class="tier-label t3">🎨 Tier 3 — Design Polish</div>
+
+  <div class="feature-item selected" data-choice="8" onclick="toggleFeature(this)">
+    <div class="check">✓</div>
+    <div class="feature-num">8</div>
+    <div class="feature-body">
+      <p class="feature-title">Section Transition Gradients</p>
+      <p class="feature-desc">Subtle purple/teal gradient washes at section boundaries — cohesive visual flow</p>
+    </div>
+    <span class="feature-badge easy">Easy</span>
+  </div>
+
+  <div class="feature-item selected" data-choice="9" onclick="toggleFeature(this)">
+    <div class="check">✓</div>
+    <div class="feature-num">9</div>
+    <div class="feature-body">
+      <p class="feature-title">Logo Slider Fade Masks</p>
+      <p class="feature-desc">Left/right gradient fades on the logo marquee — logos dissolve in/out cleanly</p>
+    </div>
+    <span class="feature-badge easy">Easy</span>
+  </div>
+
+  <div class="feature-item selected" data-choice="10" onclick="toggleFeature(this)">
+    <div class="check">✓</div>
+    <div class="feature-num">10</div>
+    <div class="feature-body">
+      <p class="feature-title">Page Transition</p>
+      <p class="feature-desc">Framer Motion AnimatePresence between home → /quote — feels like an app, not a webpage</p>
+    </div>
+    <span class="feature-badge medium">Medium</span>
+  </div>
+
+</div>
+
+<p style="margin-top: 20px; font-size: 13px; color: #94a3b8;">Click any item to deselect it. We'll implement in this order, one at a time — easiest first within each tier.</p>
+
+<script>
+function toggleFeature(el) {
+  el.classList.toggle('selected');
+  const check = el.querySelector('.check');
+  check.textContent = el.classList.contains('selected') ? '✓' : '';
+  // fire the selection event for tracking
+  const choice = el.dataset.choice;
+  if (window.recordEvent) window.recordEvent(choice, el.querySelector('.feature-title').textContent);
+}
+</script>
